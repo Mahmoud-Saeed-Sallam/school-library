@@ -233,35 +233,32 @@
         alert('من فضلك اختر مادة واحدة على الأقل.');
         return;
       }
-
       const payload = {
         fullName: name.value.trim(),
         section: section.value.trim(),
         timestamp: new Date().toISOString(),
-        items: entries
+        items: JSON.stringify(entries) // نحول المصفوفة لنص
       };
 
-      fetch(SCRIPT_URL, {
-        method: 'POST',
-        body: JSON.stringify(payload),
-        headers: { 'Content-Type': 'application/json' }
-      })
-      .then(res => res.json())
-      .then(response => {
-        if(response.result === "success"){
-          alert("✅ تم حفظ الطلب بنجاح");
-          form.reset();
-          container.innerHTML = "";
-          addGroup(); // إنشاء مجموعة جديدة فارغة
-        } else {
-          alert("❌ خطأ: " + response.message);
-        }
-      })
-      .catch(err => {
-        alert("❌ لم يتم الاتصال بـ Google Sheets");
-        console.error(err);
-      });
-    });
+      // تحويل البيانات إلى باراميترات GET
+      const params = new URLSearchParams(payload);
+
+      fetch(`${SCRIPT_URL}?${params.toString()}`)
+        .then(res => res.json())
+        .then(response => {
+          if(response.result === "success"){
+            alert("✅ تم حفظ الطلب بنجاح");
+            form.reset();
+            container.innerHTML = "";
+            addGroup(); // إنشاء مجموعة جديدة فارغة
+          } else {
+            alert("❌ خطأ: " + response.message);
+          }
+        })
+        .catch(err => {
+          alert("❌ لم يتم الاتصال بـ Google Sheets");
+          console.error(err);
+        });
   </script>
 </body>
 </html>
