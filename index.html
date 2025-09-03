@@ -16,9 +16,7 @@
       background:var(--card); border-radius:16px; box-shadow:0 8px 20px rgba(0,0,0,.08);
       padding:22px 18px;
     }
-    header{
-      text-align:center; margin-bottom:14px;
-    }
+    header{text-align:center; margin-bottom:14px;}
     header img{height:80px; display:block; margin:8px auto 6px;}
     header h1{margin:6px 0 0; color:var(--text); font-size:28px}
     label.top{display:block; margin:12px 0 6px; font-weight:700; color:var(--text); font-size:18px}
@@ -73,30 +71,29 @@
         <h3>📚 نموذج طلبات الكتب الخارجية 📚</h3>
       </header>
 
-     <form id="orderForm" novalidate>
-  <!-- بيانات المستخدم -->
-  <div class="grid-2">
-    <div>
-      <label class="top" for="fullName">الاسم الثلاثي</label>
-      <input id="fullName" name="fullName" type="text" placeholder="مثال: أحمد محمد علي" required>
-    </div>
-    <div>
-      <label class="top" for="section">القسم</label>
-      <input id="section" name="section" type="text" placeholder="مثال: اداري / اللغة العربية / الرياضيات / اشراف / " required>
-    </div>
-  </div>
-  <div class="hint">* الاسم والقسم حقول مطلوبة.</div>
+      <form id="orderForm" novalidate>
+        <!-- بيانات المستخدم -->
+        <div class="grid-2">
+          <div>
+            <label class="top" for="fullName">الاسم الثلاثي</label>
+            <input id="fullName" name="fullName" type="text" placeholder="مثال: أحمد محمد علي" required>
+          </div>
+          <div>
+            <label class="top" for="section">القسم</label>
+            <input id="section" name="section" type="text" placeholder="مثال: اداري / اللغة العربية / الرياضيات / اشراف / " required>
+          </div>
+        </div>
+        <div class="hint">* الاسم والقسم حقول مطلوبة.</div>
 
-  <!-- ✅ الحاوية التي ستظهر فيها مجموعات الكتب -->
-  <div id="booksContainer"></div>
+        <!-- ✅ الحاوية التي ستظهر فيها مجموعات الكتب -->
+        <div id="booksContainer"></div>
 
-  <!-- الأزرار -->
-  <div class="actions">
-    <button type="button" class="btn-add" id="btnAdd">➕ أضف كتاب آخر</button>
-    <button type="submit" class="btn-save">💾 حفظ الطلب</button>
-  </div>
-</form>
-
+        <!-- الأزرار -->
+        <div class="actions">
+          <button type="button" class="btn-add" id="btnAdd">➕ أضف كتاب آخر</button>
+          <button type="submit" class="btn-save">💾 حفظ الطلب</button>
+        </div>
+      </form>
     </div>
   </div>
 
@@ -125,7 +122,6 @@
       </div>
 
       <div class="subjects">
-        <!-- 11 مادة -->
         <div class="subject-item"><input type="checkbox" /><label>اللغة العربية</label><input type="text" placeholder="اسم الكتاب"></div>
         <div class="subject-item"><input type="checkbox" /><label>اللغة الإنجليزية</label><input type="text" placeholder="اسم الكتاب"></div>
         <div class="subject-item"><input type="checkbox" /><label>الرياضيات</label><input type="text" placeholder="اسم الكتاب"></div>
@@ -139,8 +135,9 @@
         <div class="subject-item"><input type="checkbox" /><label>الفلسفة</label><input type="text" placeholder="اسم الكتاب"></div>
       </div>
 
+      <!-- زر حذف داخل كل مجموعة -->
       <div class="actions">
-        
+        <button type="button" class="btn-remove">🗑️ حذف هذه المجموعة</button>
       </div>
     </div>
   </template>
@@ -151,9 +148,7 @@
     const template = document.getElementById('groupTemplate');
     const form = document.getElementById('orderForm');
 
-    // رابط Google Apps Script (استبدله برابط الويب آب الخاص بك)
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwzV47xSclGkIWmGoIK4cq_LR04DYB-IcnKs-C6m3-Fne3xdl3r0NU3ROFWJ_3kR_8g/exec";
-
 
     // إنشاء مجموعة أولى عند التحميل
     addGroup();
@@ -168,7 +163,7 @@
       container.appendChild(clone);
     }
 
-    // ربط أحداث المجموعة (إظهار مدخل النص عند الاختيار + حذف)
+    // ربط أحداث المجموعة
     function wireGroup(groupEl){
       // كشف/إخفاء صندوق النص
       groupEl.querySelectorAll('.subject-item').forEach(item=>{
@@ -188,87 +183,6 @@
         }
       });
     }
-
-    // حفظ الطلب
-    form.addEventListener('submit', (e)=>{
-      e.preventDefault();
-
-      const name = document.getElementById('fullName');
-      const section = document.getElementById('section');
-      [name, section].forEach(el=>el.classList.remove('error'));
-
-      if(!name.value.trim()){ name.classList.add('error'); name.focus(); return; }
-      if(!section.value.trim()){ section.classList.add('error'); section.focus(); return; }
-
-      const entries = [];
-      let stageMissing = false;
-
-      document.querySelectorAll('.book-group').forEach(group=>{
-        const stageSel = group.querySelector('.stage-select');
-        const stage = stageSel.value.trim();
-        const picksInGroup = [];
-
-        group.querySelectorAll('.subject-item').forEach(item=>{
-          const cb = item.querySelector('input[type="checkbox"]');
-          const label = item.querySelector('label').textContent.trim();
-          const title = item.querySelector('input[type="text"]').value.trim();
-          if(cb.checked){
-            picksInGroup.push({subject: label, bookTitle: title || ''});
-          }
-        });
-
-        if(picksInGroup.length && !stage){
-          stageMissing = true;
-          stageSel.classList.add('error');
-          stageSel.scrollIntoView({behavior:'smooth', block:'center'});
-        }else{
-          stageSel.classList.remove('error');
-        }
-
-        picksInGroup.forEach(p=>entries.push({stage, subject:p.subject, bookTitle:p.bookTitle}));
-      });
-
-      if(stageMissing){
-        alert('من فضلك اختر "المرحلة" لكل مجموعة قمت باختيار مواد بداخلها.');
-        return;
-      }
-      if(entries.length===0){
-        alert('من فضلك اختر مادة واحدة على الأقل.');
-        return;
-      }
-
-      const payload = {
-        fullName: name.value.trim(),
-        section: section.value.trim(),
-        timestamp: new Date().toISOString(),
-        items: entries
-      };
-
-      fetch(SCRIPT_URL, {
-        method: 'POST',
-        body: JSON.stringify(payload),
-        headers: { 'Content-Type': 'application/json' }
-      })
-      .then(res => res.json())
-      .then(response => {
-        if(response.result === "success"){
-          alert("✅ تم حفظ الطلب بنجاح");
-          form.reset();
-          container.innerHTML = "";
-          addGroup(); // إنشاء مجموعة جديدة فارغة
-        } else {
-          alert("❌ خطأ: " + response.message);
-        }
-      })
-      .catch(err => {
-        alert("❌ لم يتم الاتصال بـ Google Sheets");
-        console.error(err);
-      });
-    });
   </script>
 </body>
 </html>
-
-
-
-
