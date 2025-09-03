@@ -242,26 +242,30 @@
         items: entries
       };
 
-      fetch(SCRIPT_URL, {
-        method: 'POST',
-        body: JSON.stringify(payload),
-        headers: { 'Content-Type': 'application/json' }
-      })
-      .then(res => res.json())
-      .then(response => {
-        if(response.result === "success"){
-          alert("✅ تم حفظ الطلب بنجاح");
-          form.reset();
-          container.innerHTML = "";
-          addGroup(); // إنشاء مجموعة جديدة فارغة
-        } else {
-          alert("❌ خطأ: " + response.message);
-        }
-      })
-      .catch(err => {
-        alert("❌ لم يتم الاتصال بـ Google Sheets");
-        console.error(err);
+      const params = new URLSearchParams({
+        fullName: name.value.trim(),
+        section: section.value.trim(),
+        timestamp: new Date().toISOString(),
+        items: JSON.stringify(entries) // مهم جدا
       });
+
+      fetch(`${SCRIPT_URL}?${params.toString()}`)
+        .then(res => res.json())
+        .then(response => {
+          if(response.result === "success"){
+            alert("✅ تم حفظ الطلب بنجاح");
+            form.reset();
+            container.innerHTML = "";
+            addGroup(); // إنشاء مجموعة جديدة فارغة
+          } else {
+            alert("❌ خطأ: " + response.message);
+          }
+        })
+        .catch(err => {
+          alert("❌ لم يتم الاتصال بـ Google Sheets");
+          console.error(err);
+        });
+
     });
   </script>
 </body>
