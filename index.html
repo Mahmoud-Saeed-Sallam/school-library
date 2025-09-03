@@ -69,8 +69,7 @@
     <div class="card">
       <header>
         <img src="school-logo.png" alt="شعار المدرسة">
-        <h1>مكتبة مدارس الخليل</h1>
-         <h2>📚 نموذج طلب كتب خارجية 📚</h2>
+        <h1>📚 مكتبة مدارس الخليل</h1>
       </header>
 
       <form id="orderForm" novalidate>
@@ -82,7 +81,7 @@
           </div>
           <div>
             <label class="top" for="section">القسم</label>
-            <input id="section" name="section" type="text" placeholder="مثال: اللغة العربية / الرياضيات / اداري / اشراف ....." required>
+            <input id="section" name="section" type="text" placeholder="مثال: اللغة العربية/ الرياضيات / اداري / اشراف ..." required>
           </div>
         </div>
         <div class="hint">* الاسم والقسم حقول مطلوبة.</div>
@@ -135,10 +134,11 @@
         <div class="subject-item"><input type="checkbox" /><label>التاريخ</label><input type="text" placeholder="اسم الكتاب"></div>
         <div class="subject-item"><input type="checkbox" /><label>الجغرافيا</label><input type="text" placeholder="اسم الكتاب"></div>
         <div class="subject-item"><input type="checkbox" /><label>الفلسفة</label><input type="text" placeholder="اسم الكتاب"></div>
+        <div class="subject-item"><input type="checkbox" /><label>اخرى</label><input type="text" placeholder="اسم الكتاب"></div>
       </div>
 
       <div class="actions">
-        <button type="button" class="btn-remove">🗑️ </button>
+        <button type="button" class="btn-remove">🗑️   </button>
       </div>
     </div>
   </template>
@@ -266,4 +266,3 @@
   </script>
 </body>
 </html>
-
