@@ -73,29 +73,30 @@
         <h3>📚 نموذج طلبات الكتب الخارجية 📚</h3>
       </header>
 
-      <form id="orderForm" novalidate>
-        <!-- بيانات المستخدم -->
-        <div class="grid-2">
-          <div>
-            <label class="top" for="fullName">الاسم الثلاثي</label>
-            <input id="fullName" name="fullName" type="text" placeholder="مثال: أحمد محمد علي" required>
-          </div>
-          <div>
-            <label class="top" for="section">القسم</label>
-            <input id="section" name="section" type="text" placeholder="مثال: اداري / اللغة العربية / الرياضيات / اشراف / " required>
-          </div>
-        </div>
-        <div class="hint">* الاسم والقسم حقول مطلوبة.</div>
-
-        <!-- مجموعات الكتب -->
-      <div class="actions">
-        <button type="button" class="btn-remove">🗑️ حذف هذه المجموعة</button>
-      </div>
+     <form id="orderForm" novalidate>
+  <!-- بيانات المستخدم -->
+  <div class="grid-2">
+    <div>
+      <label class="top" for="fullName">الاسم الثلاثي</label>
+      <input id="fullName" name="fullName" type="text" placeholder="مثال: أحمد محمد علي" required>
     </div>
-          <button type="button" class="btn-add" id="btnAdd">➕ أضف كتاب آخر</button>
-          <button type="submit" class="btn-save">💾 حفظ الطلب</button>
-        </div>
-      </form>
+    <div>
+      <label class="top" for="section">القسم</label>
+      <input id="section" name="section" type="text" placeholder="مثال: اداري / اللغة العربية / الرياضيات / اشراف / " required>
+    </div>
+  </div>
+  <div class="hint">* الاسم والقسم حقول مطلوبة.</div>
+
+  <!-- ✅ الحاوية التي ستظهر فيها مجموعات الكتب -->
+  <div id="booksContainer"></div>
+
+  <!-- الأزرار -->
+  <div class="actions">
+    <button type="button" class="btn-add" id="btnAdd">➕ أضف كتاب آخر</button>
+    <button type="submit" class="btn-save">💾 حفظ الطلب</button>
+  </div>
+</form>
+
     </div>
   </div>
 
@@ -267,6 +268,7 @@
   </script>
 </body>
 </html>
+
 
 
 
