@@ -8,219 +8,251 @@
 <!-- Bootstrap -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
 
-<!-- jQuery -->
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-
 <style>
-    body{
-        margin:0;
-        padding:0;
-        overflow:hidden;
-        font-family: 'Segoe UI', sans-serif;
-        background:#f5f5f5;
-    }
+/* Colors matching alkhalilschools.net */
+:root {
+    --green: #0A5C5A;
+    --yellow: #F4B400;
+    --white: #ffffff;
+}
 
-    /* إطار ترحيبي */
-    .welcome-text{
-        position:absolute;
-        top:10px;
-        width: 100%;
-        margin:0 auto;
-        left:50%;
-        transform:translateX(-50%);
-        text-align:center;
-        font-size:32px;
-        font-weight:800;
-        color:#004F52;
-        background: rgba(255,255,255,0.85);
-        padding:15px 40px;
-        border-radius:25px;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-        z-index:50;
-        opacity : 0.55;
+/* General */
+body {
+    margin: 0;
+    padding: 0;
+    background: #f5f5f5;
+    font-family: 'Segoe UI', sans-serif;
+    overflow-x: hidden;
+}
 
-        
-    }
+/* -------------------------------------------- */
+/* WELCOME BOX */
+/* -------------------------------------------- */
 
-    .split-container{
-        display:flex;
+.welcome-box{
+    position:absolute;
+    top:20px;
+    left:50%;
+    transform:translateX(-50%);
+    padding:18px 45px;
+    background:rgba(255,255,255,0.75);
+    border-radius:18px;
+    backdrop-filter: blur(6px);
+    font-size:28px;
+    font-weight:800;
+    color:var(--green);
+    box-shadow:0 8px 25px rgba(0,0,0,0.25);
+    z-index:200;
+}
+
+/* -------------------------------------------- */
+/* SPLIT SECTIONS */
+/* -------------------------------------------- */
+.section {
+    position:relative;
+    width:100%;
+    height:50vh;
+    background-size:cover;
+    background-position:center;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+@media(min-width:992px){
+    .section{
         height:100vh;
-        width:100%;
-    }
-
-    .left-section, .right-section{
         width:50%;
-        position:relative;
-        background-size:cover;
-        background-position:center;
     }
+}
 
-    .bg-overlay{
-        position:absolute;
-        inset:0;
-        background-size:cover;
-        background-position:center;
-        opacity:0.6;
-        filter:brightness(1.1);
-    }
+/* LEFT + RIGHT container flex */
+.split-wrapper{
+    display:flex;
+    flex-direction:column;
+}
 
-    /* الأزرار الدائرية مع شفافية أقل و3D */
-    .main-btn{
-        position:absolute;
-        top:46%;
-        left:50%;
-        transform:translate(-50%, -50%);
-        width:350px;
-        height:350px;
-        border-radius:30%;
-        border:none;
-        cursor:pointer;
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        overflow:hidden;
-        background: rgba(255,255,255,0.85);
-        box-shadow: 0 15px 25px rgba(0,0,0,0.3);
-        transition: transform 0.4s, box-shadow 0.4s;
-        opacity : 0.95;
+@media(min-width:992px){
+    .split-wrapper{
+        flex-direction:row;
     }
+}
 
-    .main-btn:hover{
-        transform:translate(-50%, -50%) scale(1.05);
-        box-shadow: 0 20px 35px rgba(0,0,0,0.35);
-    }
+/* -------------------------------------------- */
+/* ZigZag Divider */
+/* -------------------------------------------- */
+.zigzag {
+    position:absolute;
+    top:0;
+    left:-20px;
+    height:100%;
+    width:40px;
+    background:
+        linear-gradient(135deg, transparent 75%, var(--yellow) 75%) 0 0,
+        linear-gradient(225deg, transparent 75%, var(--yellow) 75%) 0 0;
+    background-size:40px 40px;
+    z-index:50;
+}
 
-    .main-btn img{
-        width:85%;
-        height:85%;
-        object-fit:contain;
-        pointer-events:none;
+@media(max-width:991px){
+    .zigzag{
+        width:100%;
+        height:40px;
+        top:auto;
+        bottom:-20px;
+        left:0;
+        background:
+            linear-gradient(45deg, transparent 75%, var(--yellow) 75%) 0 0,
+            linear-gradient(-45deg, transparent 75%, var(--yellow) 75%) 0 0;
+        background-size:40px 40px;
     }
+}
 
-    .apply-btn{
-        position:absolute;
-        top:80%;
-        left:50%;
-        transform:translateX(-50%);
-        padding:12px 28px;
-        font-size:20px;
-        font-weight:600;
-        border-radius:40px;
-        border:none;
-        cursor:pointer;
-        background: rgba(255,255,255,0.85);
-        box-shadow: 0 8px 20px rgba(0,0,0,0.25);
-        transition: transform 0.3s, box-shadow 0.3s;
-    }
+/* -------------------------------------------- */
+/* BUTTON CIRCLES */
+/* -------------------------------------------- */
 
-    .apply-btn:hover{
-        transform:translateX(-50%) scale(1.05);
-        box-shadow: 0 12px 25px rgba(0,0,0,0.3);
-    }
+.circle-btn{
+    width:260px;
+    height:260px;
+    border-radius:50%;
+    background:rgba(255,255,255,0.78);
+    box-shadow:0 15px 25px rgba(0,0,0,0.25);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+    transition:0.3s;
+    backdrop-filter: blur(4px);
+}
 
-    @keyframes slowRotate {
-        0%   { transform:translate(-50%, -50%) rotate(0deg); }
-        50%  { transform:translate(-50%, -50%) rotate(3deg); }
-        100% { transform:translate(-50%, -50%) rotate(-3deg); }
-    }
+.circle-btn:hover{
+    transform:scale(1.06);
+    box-shadow:0 20px 35px rgba(0,0,0,0.30);
+}
 
-    .animate-circle{
-        animation: slowRotate 8s infinite ease-in-out;
-    }
+.circle-btn img{
+    width:80%;
+    height:80%;
+    object-fit:contain;
+}
 
-    /* Fade-in animation */
-    .fade-in-iframe {
-        opacity: 0;
-        transition: opacity 0.6s ease-in-out;
-    }
+/* -------------------------------------------- */
+/* APPLY BTN */
+/* -------------------------------------------- */
+.apply-btn{
+    margin-top:20px;
+    padding:10px 24px;
+    background:rgba(255,255,255,0.8);
+    border:none;
+    border-radius:35px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.25);
+    font-size:18px;
+    font-weight:600;
+    transition:0.3s;
+}
 
-    .fade-in-iframe.show {
-        opacity: 1;
+.apply-btn:hover{
+    transform:scale(1.05);
+}
+
+/* -------------------------------------------- */
+/* Modal Iframe */
+/* -------------------------------------------- */
+.iframe-box iframe{
+    width:100%;
+    height:80vh;
+    border:none;
+}
+
+/* Smaller screens */
+@media(max-width:575px){
+    .circle-btn{
+        width:190px;
+        height:190px;
     }
+    .welcome-box{
+        font-size:22px;
+        padding:14px 25px;
+    }
+}
 </style>
 </head>
 <body>
 
-<div class="welcome-text">
+<!-- Welcome -->
+<div class="welcome-box">
     Welcome to Alkhalil Schools
 </div>
 
-<div class="split-container">
+<!-- Sections -->
+<div class="split-wrapper">
 
-    <!-- اليسار -->
-    <div class="left-section" style="background:#00796B;">
-        
-        <div class="bg-overlay" style="background-image:url('images/school_building_left.jpg');"></div>
+    <!-- LEFT -->
+    <div class="section" style="background-image:url('images/school_building_left.jpg');">
+        <div class="zigzag"></div>
 
-        <button class="main-btn animate-circle" id="btn-lang">
-            <img src="images/alkhalil_languages_logo.jpg" alt="Alkhalil Languages">
-        </button>
+        <div class="text-center">
+            <div class="circle-btn">
+                <img src="images/alkhalil_languages_logo.jpg" alt="">
+            </div>
 
-        <button class="apply-btn" 
-            data-iframe="https://forms.office.com/Pages/ResponsePage.aspx?id=Q58N-rCHsECVMth4NisdczOoceU32QdIup1gPFvvbJVUMVkwR0MzQVVYOEZQN01GSkIwNFVRUjBUVS4u&embed=true" 
-            onclick="openForm(this)">
-            Apply Now
-        </button>
-
+            <button class="apply-btn"
+                data-bs-toggle="modal"
+                data-bs-target="#applyModal"
+                data-iframe="https://forms.office.com/Pages/ResponsePage.aspx?id=Q58N-rCHsECVMth4NisdczOoceU32QdIup1gPFvvbJVUMVkwR0MzQVVYOEZQN01GSkIwNFVRUjBUVS4u&embed=true">
+                Apply Now
+            </button>
+        </div>
     </div>
 
-    <!-- اليمين -->
-    <div class="right-section" style="background:#F4B400;">
+    <!-- RIGHT -->
+    <div class="section" style="background-image:url('images/school_building_right.jpg');">
 
-        <div class="bg-overlay" style="background-image:url('images/school_building_right.jpg');"></div>
+        <div class="text-center">
+            <div class="circle-btn">
+                <img src="images/alkhalil_international_logo.png" alt="">
+            </div>
 
-        <button class="main-btn animate-circle" id="btn-international">
-            <img src="images/alkhalil_international_logo.png" alt="Alkhalil International">
-        </button>
-
-        <button class="apply-btn" 
-            data-iframe="https://forms.office.com/Pages/ResponsePage.aspx?id=Q58N-rCHsECVMth4NisdczOoceU32QdIup1gPFvvbJVUMlVONDVLNks2T1A3WVJOMUM1TVhZOFNJTC4u&embed=true" 
-            onclick="openForm(this)">
-            Apply Now
-        </button>
-
+            <button class="apply-btn"
+                data-bs-toggle="modal"
+                data-bs-target="#applyModal"
+                data-iframe="https://forms.office.com/Pages/ResponsePage.aspx?id=Q58N-rCHsECVMth4NisdczOoceU32QdIup1gPFvvbJVUMlVONDVLNks2T1A3WVJOMUM1TVhZOFNJTC4u&embed=true">
+                Apply Now
+            </button>
+        </div>
     </div>
 
 </div>
 
-<!-- Popup Modal For The Form -->
-<div class="modal fade" id="applyModal" tabindex="-1">
-  <div class="modal-dialog modal-xl modal-dialog-centered">
+<!-- Modal -->
+<div class="modal fade" id="applyModal">
+  <div class="modal-dialog modal-xl">
     <div class="modal-content">
 
       <div class="modal-header">
-        <h5 class="modal-title fw-bold">Application Form</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        <h5 class="modal-title">Application Form</h5>
+        <button class="btn-close" data-bs-dismiss="modal"></button>
       </div>
 
-      <div class="modal-body p-0" id="modalBody">
-        <!-- iframe سيتم إدراجه ديناميكياً هنا -->
+      <div class="modal-body iframe-box">
+        <iframe id="formFrame"></iframe>
       </div>
 
     </div>
   </div>
 </div>
 
-<!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
-function openForm(btn){
-    var iframeSrc = btn.getAttribute('data-iframe'); 
-    var modalBody = document.getElementById('modalBody');
-
-    modalBody.innerHTML = `<iframe class="fade-in-iframe" width="640px" height="480px" src="${iframeSrc}" frameborder="0" marginwidth="0" marginheight="0" style="border: none; max-width:100%; max-height:100vh;" allowfullscreen webkitallowfullscreen mozallowfullscreen msallowfullscreen></iframe>`;
-
-    var modal = new bootstrap.Modal(document.getElementById('applyModal'));
-    modal.show();
-
-    setTimeout(function(){
-        var iframe = modalBody.querySelector('iframe');
-        iframe.classList.add('show');
-    }, 50);
-}
+const modal = document.getElementById("applyModal");
+modal.addEventListener("show.bs.modal", function(event){
+    let button = event.relatedTarget;
+    let link = button.getAttribute("data-iframe");
+    document.getElementById("formFrame").src = link;
+});
 </script>
 
 </body>
 </html>
-
