@@ -1,247 +1,212 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>📚 مكتبة مدارس الخليل</title>
-  <style>
-    :root { --card:#ffffff; --muted:#f6f7fb; --text:#243042; --primary:#1e88e5; --ok:#28a745; --danger:#e53935; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alkhalil Schools - Homepage</title>
+
+<!-- Bootstrap -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<style>
     body{
-      font-family: "Tajawal", Arial, sans-serif;
-      margin:0; padding:0; background:#eef1f6;
-      background-image:linear-gradient(180deg,#eef1f6 0%, #e6ecf8 100%);
+        margin:0;
+        padding:0;
+        overflow:hidden;
+        font-family: 'Segoe UI', sans-serif;
+        background:#f5f5f5;
     }
-    .wrap{max-width:980px;margin:24px auto;padding:16px;}
-    .card{
-      background:var(--card); border-radius:16px; box-shadow:0 8px 20px rgba(0,0,0,.08);
-      padding:22px 18px;
-    }
-    header{text-align:center; margin-bottom:14px;}
-    header img{height:80px; display:block; margin:8px auto 6px;}
-    header h1{margin:6px 0 0; color:var(--text); font-size:28px}
-    label.top{display:block; margin:12px 0 6px; font-weight:700; color:var(--text); font-size:18px}
-    input[type="text"], select{
-      width:100%; padding:12px 14px; border:1px solid #cfd6e4; border-radius:10px; font-size:18px; background:#fff;
-    }
-    .grid-2{display:grid; grid-template-columns:1fr 1fr; gap:14px}
-    @media (max-width:720px){ .grid-2{grid-template-columns:1fr} }
 
-    .book-group{
-      background:var(--muted); border:1px solid #e6e9f0; padding:14px; border-radius:12px; margin-top:14px;
+    .welcome-text{
+        position:absolute;
+        top:20px;
+        width:100%;
+        text-align:center;
+        font-size:38px;
+        font-weight:800;
+        color:#004F52;
+        text-shadow:0 0 10px rgba(0,0,0,0.20);
+        z-index:50;
     }
-    .group-head{
-      display:grid; grid-template-columns: auto 220px; gap:10px; align-items:center; margin-bottom:10px;
-    }
-    .group-head .title{font-weight:700; color:var(--text); font-size:18px}
-    .stage-select{font-size:18px}
-    .subjects{
-      display:grid; grid-template-columns: repeat(3, 1fr); gap:12px;
-    }
-    @media (max-width:880px){ .subjects{grid-template-columns: repeat(2, 1fr);} }
-    @media (max-width:620px){ .subjects{grid-template-columns: 1fr;} }
 
-    .subject-item{
-      display:grid; grid-template-columns: 28px 1fr 130px; gap:6px; align-items:center;
-      background:#fff; padding:6px 8px; border-radius:10px; border:1px solid #e6e9f0; font-size:18px;
+    .split-container{
+        display:flex;
+        height:100vh;
+        width:100%;
     }
-    .subject-item input[type="text"]{
-      width:100%; padding:6px 8px; height:34px; font-size:16px; display:none; border:1px solid #cfd6e4; border-radius:8px;
+
+    .left-section, .right-section{
+        width:50%;
+        position:relative;
+        background-size:cover;
+        background-position:center;
     }
-    .subject-item label{margin:0; white-space:nowrap}
 
-    .actions{display:flex; gap:10px; margin-top:16px; flex-wrap:wrap}
-    button{border:none; border-radius:10px; padding:12px 16px; font-size:18px; cursor:pointer;}
-    .btn-add{background:var(--primary); color:#fff}
-    .btn-save{background:var(--ok); color:#fff; flex:1}
-    .btn-remove{background:#fff; color:var(--danger); border:1px solid #f2b6b6}
+    .bg-overlay{
+        position:absolute;
+        inset:0;
+        background-size:cover;
+        background-position:center;
+        opacity:0.6;
+        filter:brightness(1.1);
+    }
 
-    .error{border-color:var(--danger)!important; box-shadow:0 0 0 2px rgba(229,57,53,.12)}
-    .hint{font-size:14px; color:#6b7a90; margin-top:4px}
-  </style>
+    .main-btn{
+        position:absolute;
+        top:42%;
+        left:50%;
+        transform:translate(-50%, -50%);
+        width:350px;
+        height:350px;
+        border-radius:30%;
+        border:none;
+        cursor:pointer;
+        transition:0.4s;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        overflow:hidden;
+        background:white;
+        box-shadow:0 0 25px rgba(0,0,0,0.25);
+    }
+
+    .main-btn img{
+        width:85%;
+        height:85%;
+        object-fit:contain;
+        pointer-events:none;
+    }
+
+    .apply-btn{
+        position:absolute;
+        top:80%;
+        left:50%;
+        transform:translateX(-50%);
+        padding:12px 28px;
+        font-size:20px;
+        font-weight:600;
+        border-radius:40px;
+        border:none;
+        cursor:pointer;
+        background:#ffffff;
+        box-shadow:0 0 10px rgba(0,0,0,0.25);
+        transition:0.3s;
+    }
+
+    .apply-btn:hover{
+        transform:translateX(-50%) scale(1.05);
+        background:#f0f0f0;
+    }
+
+    @keyframes slowRotate {
+        0%   { transform:translate(-50%, -50%) rotate(0deg); }
+        50%  { transform:translate(-50%, -50%) rotate(3deg); }
+        100% { transform:translate(-50%, -50%) rotate(-3deg); }
+    }
+
+    .animate-circle{
+        animation: slowRotate 8s infinite ease-in-out;
+    }
+
+    /* Fade-in animation */
+    .fade-in-iframe {
+        opacity: 0;
+        transition: opacity 0.6s ease-in-out;
+    }
+
+    .fade-in-iframe.show {
+        opacity: 1;
+    }
+</style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="card">
-      <header>
-        <img src="school-logo.png" alt="شعار المدرسة">
-        <h1>📚 مكتبة مدارس الخليل📚</h1>
-        <br>
-      <u>  <h2> نموذج طلب كتب خارجية من المكتبة</h2></u>
-      </header>
 
-      <form id="orderForm" novalidate>
-        <div class="grid-2">
-          <div>
-            <label class="top" for="fullName">الاسم الثلاثي</label>
-            <input id="fullName" name="fullName" type="text" placeholder="مثال: أحمد محمد علي" required>
-          </div>
-          <div>
-            <label class="top" for="section">القسم</label>
-            <input id="section" name="section" type="text" placeholder="مثال: اللغة العربية/ الرياضيات / اداري / اشراف ..." required>
-          </div>
-        </div>
-        <div class="hint">* الاسم والقسم حقول مطلوبة.</div>
+<div class="welcome-text">
+    Welcome to Alkhalil Schools
+</div>
 
-        <div id="booksContainer"></div>
+<div class="split-container">
 
-        <div class="actions">
-          <button type="button" class="btn-add" id="btnAdd">➕ أضف كتاب آخر</button>
-          <button type="submit" class="btn-save">💾 حفظ الطلب</button>
-        </div>
-      </form>
+    <!-- اليسار -->
+    <div class="left-section" style="background:#00796B;">
+        
+        <div class="bg-overlay" style="background-image:url('school_building_left.jpg');"></div>
+
+        <button class="main-btn animate-circle" id="btn-lang">
+            <img src="alkhalil_languages_logo.jpg" alt="Alkhalil Languages">
+        </button>
+
+        <button class="apply-btn" 
+            data-iframe="https://forms.office.com/Pages/ResponsePage.aspx?id=Q58N-rCHsECVMth4NisdczOoceU32QdIup1gPFvvbJVUMVkwR0MzQVVYOEZQN01GSkIwNFVRUjBUVS4u&embed=true" 
+            onclick="openForm(this)">
+            Apply Now
+        </button>
+
+    </div>
+
+    <!-- اليمين -->
+    <div class="right-section" style="background:#F4B400;">
+
+        <div class="bg-overlay" style="background-image:url('school_building_right.jpg');"></div>
+
+        <button class="main-btn animate-circle" id="btn-international">
+            <img src="alkhalil_international_logo.png" alt="Alkhalil International">
+        </button>
+
+        <button class="apply-btn" 
+            data-iframe="https://forms.office.com/Pages/ResponsePage.aspx?id=Q58N-rCHsECVMth4NisdczOoceU32QdIup1gPFvvbJVUMlVONDVLNks2T1A3WVJOMUM1TVhZOFNJTC4u&embed=true" 
+            onclick="openForm(this)">
+            Apply Now
+        </button>
+
+    </div>
+
+</div>
+
+<!-- --------------------------- -->
+<!--   Popup Modal For The Form   -->
+<!-- --------------------------- -->
+<div class="modal fade" id="applyModal" tabindex="-1">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title fw-bold">Application Form</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body p-0" id="modalBody">
+        <!-- iframe سيتم إدراجه ديناميكياً هنا -->
+      </div>
+
     </div>
   </div>
+</div>
 
-  <template id="groupTemplate">
-    <div class="book-group">
-      <div class="group-head">
-        <div class="title">تفاصيل الكتب المطلوبة</div>
-        <select class="stage-select">
-          <option value="">— اختر المرحلة —</option>
-          <option>الأول رياض أطفال</option>
-          <option>الثاني رياض أطفال</option>
-          <option>الأول الابتدائي</option>
-          <option>الثاني الابتدائي</option>
-          <option>الثالث الابتدائي</option>
-          <option>الرابع الابتدائي</option>
-          <option>الخامس الابتدائي</option>
-          <option>السادس الابتدائي</option>
-          <option>الأول الإعدادي</option>
-          <option>الثاني الإعدادي</option>
-          <option>الثالث الإعدادي</option>
-          <option>الأول الثانوي</option>
-          <option>الثاني الثانوي</option>
-          <option>الثالث الثانوي</option>
-        </select>
-      </div>
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
-      <div class="subjects">
-        <div class="subject-item"><input type="checkbox" /><label>اللغة العربية</label><input type="text" placeholder="اسم الكتاب"></div>
-        <div class="subject-item"><input type="checkbox" /><label>اللغة الإنجليزية</label><input type="text" placeholder="اسم الكتاب"></div>
-        <div class="subject-item"><input type="checkbox" /><label>الرياضيات</label><input type="text" placeholder="اسم الكتاب"></div>
-        <div class="subject-item"><input type="checkbox" /><label>العلوم</label><input type="text" placeholder="اسم الكتاب"></div>
-        <div class="subject-item"><input type="checkbox" /><label>الدراسات</label><input type="text" placeholder="اسم الكتاب"></div>
-        <div class="subject-item"><input type="checkbox" /><label>الفيزياء</label><input type="text" placeholder="اسم الكتاب"></div>
-        <div class="subject-item"><input type="checkbox" /><label>الكيمياء</label><input type="text" placeholder="اسم الكتاب"></div>
-        <div class="subject-item"><input type="checkbox" /><label>الأحياء</label><input type="text" placeholder="اسم الكتاب"></div>
-        <div class="subject-item"><input type="checkbox" /><label>التاريخ</label><input type="text" placeholder="اسم الكتاب"></div>
-        <div class="subject-item"><input type="checkbox" /><label>الجغرافيا</label><input type="text" placeholder="اسم الكتاب"></div>
-        <div class="subject-item"><input type="checkbox" /><label>الفلسفة</label><input type="text" placeholder="اسم الكتاب"></div>
-        <div class="subject-item"><input type="checkbox" /><label>اخرى</label><input type="text" placeholder="اسم الكتاب"></div>
-      </div>
+<script>
+function openForm(btn){
+    var iframeSrc = btn.getAttribute('data-iframe'); 
+    var modalBody = document.getElementById('modalBody');
 
-      <div class="actions">
-        <button type="button" class="btn-remove">🗑️</button>
-      </div>
-    </div>
-  </template>
+    // إنشاء iframe مع class للفيد إن
+    modalBody.innerHTML = `<iframe class="fade-in-iframe" width="640px" height="480px" src="${iframeSrc}" frameborder="0" marginwidth="0" marginheight="0" style="border: none; max-width:100%; max-height:100vh;" allowfullscreen webkitallowfullscreen mozallowfullscreen msallowfullscreen></iframe>`;
 
-  <script>
-    const container = document.getElementById('booksContainer');
-    const btnAdd = document.getElementById('btnAdd');
-    const template = document.getElementById('groupTemplate');
-    const form = document.getElementById('orderForm');
+    var modal = new bootstrap.Modal(document.getElementById('applyModal'));
+    modal.show();
 
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxr5sWTj2Mfe-HwIssYY2xCQfxCX87hZHrlpqg-jhHYlEg2nmNlmm174MEvkDR6D4yE/exec";
+    // تطبيق fade-in بعد قليل لضمان إدراج الـiframe
+    setTimeout(function(){
+        var iframe = modalBody.querySelector('iframe');
+        iframe.classList.add('show');
+    }, 50);
+}
+</script>
 
-    addGroup();
-    btnAdd.addEventListener('click', addGroup);
-
-    function addGroup(){
-      const clone = template.content.cloneNode(true);
-      wireGroup(clone.querySelector('.book-group'));
-      container.appendChild(clone);
-    }
-
-    function wireGroup(groupEl){
-      groupEl.querySelectorAll('.subject-item').forEach(item=>{
-        const cb = item.querySelector('input[type="checkbox"]');
-        const txt = item.querySelector('input[type="text"]');
-        cb.checked = false; txt.value=''; txt.style.display='none';
-        cb.addEventListener('change', ()=>{ txt.style.display = cb.checked ? 'block' : 'none'; });
-      });
-      groupEl.querySelector('.btn-remove').addEventListener('click', ()=>{
-        if(document.querySelectorAll('.book-group').length>1){
-          groupEl.remove();
-        }else{
-          groupEl.querySelector('.stage-select').value = '';
-          groupEl.querySelectorAll('.subject-item input[type="checkbox"]').forEach(cb=>cb.checked=false);
-          groupEl.querySelectorAll('.subject-item input[type="text"]').forEach(t=>{t.value=''; t.style.display='none';});
-        }
-      });
-    }
-
-    form.addEventListener('submit', (e)=>{
-      e.preventDefault();
-
-      const name = document.getElementById('fullName');
-      const section = document.getElementById('section');
-      [name, section].forEach(el=>el.classList.remove('error'));
-
-      if(!name.value.trim()){ name.classList.add('error'); name.focus(); return; }
-      if(!section.value.trim()){ section.classList.add('error'); section.focus(); return; }
-
-      const entries = [];
-      let stageMissing = false;
-
-      document.querySelectorAll('.book-group').forEach(group=>{
-        const stageSel = group.querySelector('.stage-select');
-        const stage = stageSel.value.trim();
-        const picksInGroup = [];
-
-        group.querySelectorAll('.subject-item').forEach(item=>{
-          const cb = item.querySelector('input[type="checkbox"]');
-          const label = item.querySelector('label').textContent.trim();
-          const title = item.querySelector('input[type="text"]').value.trim();
-          if(cb.checked){
-            picksInGroup.push({stage, subject: label, bookTitle: title || ''});
-          }
-        });
-
-        if(picksInGroup.length && !stage){
-          stageMissing = true;
-          stageSel.classList.add('error');
-          stageSel.scrollIntoView({behavior:'smooth', block:'center'});
-        }else{
-          stageSel.classList.remove('error');
-        }
-
-        picksInGroup.forEach(p=>entries.push(p));
-      });
-
-      if(stageMissing){
-        alert('من فضلك اختر "المرحلة" لكل مجموعة قمت باختيار مواد بداخلها.');
-        return;
-      }
-      if(entries.length===0){
-        alert('من فضلك اختر مادة واحدة على الأقل.');
-        return;
-      }
-
-      const params = new URLSearchParams({
-        fullName: name.value.trim(),
-        section: section.value.trim(),
-        timestamp: new Date().toISOString(),
-        items: JSON.stringify(entries)
-      });
-
-      fetch(`${SCRIPT_URL}?${params.toString()}`)
-        .then(res => res.json())
-        .then(response => {
-          if(response.result === "success"){
-            alert("✅ تم حفظ الطلب بنجاح");
-            form.reset();
-            container.innerHTML = "";
-            addGroup();
-          } else {
-            alert("❌ خطأ: " + response.message);
-          }
-        })
-        .catch(err => {
-          alert("❌ لم يتم الاتصال بـ Google Sheets");
-          console.error(err);
-        });
-    });
-  </script>
 </body>
 </html>
