@@ -133,10 +133,10 @@
     <!-- اليسار -->
     <div class="left-section" style="background:#00796B;">
         
-        <div class="bg-overlay" style="background-image:url('school_building_left.jpg');"></div>
+        <div class="bg-overlay" style="background-image:url('images/school_building_left.jpg');"></div>
 
         <button class="main-btn animate-circle" id="btn-lang">
-            <img src="alkhalil_languages_logo.jpg" alt="Alkhalil Languages">
+            <img src="images/alkhalil_languages_logo.jpg" alt="Alkhalil Languages">
         </button>
 
         <button class="apply-btn" 
@@ -150,10 +150,10 @@
     <!-- اليمين -->
     <div class="right-section" style="background:#F4B400;">
 
-        <div class="bg-overlay" style="background-image:url('school_building_right.jpg');"></div>
+        <div class="bg-overlay" style="background-image:url('images/school_building_right.jpg');"></div>
 
         <button class="main-btn animate-circle" id="btn-international">
-            <img src="alkhalil_international_logo.png" alt="Alkhalil International">
+            <img src="images/alkhalil_international_logo.png" alt="Alkhalil International">
         </button>
 
         <button class="apply-btn" 
@@ -194,13 +194,11 @@ function openForm(btn){
     var iframeSrc = btn.getAttribute('data-iframe'); 
     var modalBody = document.getElementById('modalBody');
 
-    // إنشاء iframe مع class للفيد إن
     modalBody.innerHTML = `<iframe class="fade-in-iframe" width="640px" height="480px" src="${iframeSrc}" frameborder="0" marginwidth="0" marginheight="0" style="border: none; max-width:100%; max-height:100vh;" allowfullscreen webkitallowfullscreen mozallowfullscreen msallowfullscreen></iframe>`;
 
     var modal = new bootstrap.Modal(document.getElementById('applyModal'));
     modal.show();
 
-    // تطبيق fade-in بعد قليل لضمان إدراج الـiframe
     setTimeout(function(){
         var iframe = modalBody.querySelector('iframe');
         iframe.classList.add('show');
